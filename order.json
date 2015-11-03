@@ -1,0 +1,32 @@
+{
+ "customer1":{
+			"email":"qwerty@mail.ru",	
+			"order":[
+						{
+							"id":"1",
+							"date":"20.10.2015",
+							"textOrder":"text order text order text order"
+						},
+						{
+							"id":"2",
+							"date":"21.10.2015",
+							"textOrder":"text2 order2 text2 order2 text2 order2"
+						}
+					]	
+			},
+  "customer2":{
+	"email":"qwerty@mail.ru",
+	"order":[
+	  {
+		"id":"1",
+		"date":"20.10.2015",
+		"textOrder":"text order text order text order"
+	  },
+	  {
+		"id":"2",
+		"date":"21.10.2015",
+		"textOrder":"text2 order2 text2 order2 text2 order2"
+	  }
+	]
+  }
+}
