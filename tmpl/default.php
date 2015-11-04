@@ -16,6 +16,10 @@
 			background:whiteSmoke;
 			margin:0px;
 		}
+		.cancel a {
+			font-size:200%;
+		}
+		
     </style>
 </head>
 <body>
@@ -25,7 +29,7 @@
     </div>
     <div class="row addForm">
         <form class="form-actions">
-			<div class='cancel'><a href=#>X</a></div>
+			<div class='cancel'><a href='#' onclick="return clickCancel();">X</a></div>
             <label for="customer">Заказчик:</label>
             <input type="text" value="" id="customer" name="customer">
 
@@ -40,6 +44,8 @@
 
             <label for="orderText">Примечание:</label>
             <textarea id="orderText" name="orderText"></textarea>
+			<br>
+			<button class="btn btn-success">Сохранить</button>
         </form>
     </div>
     <div class="row">
@@ -65,37 +71,42 @@
 
         $('#add').on('click',clickAdd);
 
-        function clickAdd() {
-            $('.addForm').css({'display':'block',
+
+  
+    })
+	 function clickAdd() {
+        $('.addForm').css({'display':'block',
 							   'height'	:'0px'
 						})
-						.animate({
-							'height':'400px',
-						},3000);
+					.animate({
+						'height':'450px',
+					},3000);
+    }
+	//////////////////////////////////////////
+    function showData(param) {
+        var curObj = {};
+        for (customer in param) {
+            curObj.customer = customer;
+            curObj.email = param[customer].email;
+            for(var i = 0; i <  param[customer].order.length; i++) {
+                curObj.orderNum = param[customer].order[i].id;
+                curObj.orderDate = param[customer].order[i].date;
+                curObj.orderText = param[customer].order[i].textOrder;
 
-        }
-   //////////////////////////////////////////
-        function showData(param) {
-            var curObj = {};
-            for (customer in param) {
-                curObj.customer = customer;
-                curObj.email = param[customer].email;
-                for(var i = 0; i <  param[customer].order.length; i++) {
-                    curObj.orderNum = param[customer].order[i].id;
-                    curObj.orderDate = param[customer].order[i].date;
-                    curObj.orderText = param[customer].order[i].textOrder;
-
-                    $(".table").append("<tr><td>"+curObj.orderNum+"</td>" +
-                        "<td>"+curObj.email+"</td>"+
-                        "<td>"+curObj.customer+"</td>"+
-                        "<td>"+curObj.orderDate+"</td>"+
-                        "<td>"+curObj.orderText+"</td>"+
-                        "<td class='motion'></td></tr>" );
-                }
+                $(".table").append("<tr><td>"+curObj.orderNum+"</td>" +
+								   "<td>"+curObj.email+"</td>"+
+								   "<td>"+curObj.customer+"</td>"+
+								   "<td>"+curObj.orderDate+"</td>"+
+								   "<td>"+curObj.orderText+"</td>"+
+								   "<td class='motion'></td></tr>" );
             }
         }
-
-    })
+    }
+		
+	function clickCancel() {
+			$('.addForm').hide();	
+			return false;
+	}
 </script>
 </body>
 </html>
