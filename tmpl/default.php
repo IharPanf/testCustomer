@@ -45,7 +45,7 @@
             <label for="orderText">Примечание:</label>
             <textarea id="orderText" name="orderText"></textarea>
 			<br>
-			<button class="btn btn-success">Сохранить</button>
+			<button class="btn btn-success" id="saveOrder" onclick="return clickSave();">Сохранить</button>
         </form>
     </div>
     <div class="row">
@@ -63,37 +63,31 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
-    jQuery(document).ready(function(){
-       $.getJSON('order.json', function(obj) {
-                                 showData(obj);
-                               }
-                 );
+   var objJSON =  $.getJSON('order.json', function(obj) {showData(obj);});
+   $('#add').on('click',clickAdd);
 
-        $('#add').on('click',clickAdd);
-
-
-  
-    })
-	 function clickAdd() {
+	function clickAdd() {
         $('.addForm').css({'display':'block',
-							   'height'	:'0px'
+							'height':'0px'
 						})
 					.animate({
 						'height':'450px',
 					},3000);
     }
-	//////////////////////////////////////////
     function showData(param) {
+		console.log(param);
         var curObj = {};
         for (customer in param) {
             curObj.customer = customer;
             curObj.email = param[customer].email;
+			console.log(param[customer].order.length);
             for(var i = 0; i <  param[customer].order.length; i++) {
+				console.log('++');
                 curObj.orderNum = param[customer].order[i].id;
                 curObj.orderDate = param[customer].order[i].date;
                 curObj.orderText = param[customer].order[i].textOrder;
-
-                $(".table").append("<tr><td>"+curObj.orderNum+"</td>" +
+			
+                $(".table").append("<tr class='rowOrder'><td>"+curObj.orderNum+"</td>" +
 								   "<td>"+curObj.email+"</td>"+
 								   "<td>"+curObj.customer+"</td>"+
 								   "<td>"+curObj.orderDate+"</td>"+
@@ -102,7 +96,23 @@
             }
         }
     }
-		
+	
+	function clickSave() {
+		var customerElem = $('#customer').val();
+		objJSON.responseJSON[customerElem] = {
+												email:$('#email').val(),
+												order:[{
+														'id':$('#orderNum').val(),
+														'date':$('#orderDate').val(),
+														'textOrder':$('#orderText').val()
+														}]
+												};
+		$(".rowOrder").remove();
+		clickCancel();
+		showData(objJSON.responseJSON);
+		return false;
+	}	
+	
 	function clickCancel() {
 			$('.addForm').hide();	
 			return false;
