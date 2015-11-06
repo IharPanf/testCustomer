@@ -1,0 +1,21 @@
+.addForm, #save {
+    text-align:center;
+    display:none;
+}
+.blockBtn{
+    padding: 10px 0 10px 0;
+    text-align: right;
+}
+.cancel {
+    text-align:right;
+    background:whiteSmoke;
+    margin:0px;
+}
+.cancel a {
+    font-size:200%;
+}
+.table th {
+    background: black !important;
+    color:white;
+    text-align:center;
+}
